@@ -29,7 +29,6 @@ const MentionTextarea = () => {
                 onChange={handleChangeText}
                 onKeyDown={handleKeyDown}
                 onBlur={() => setShow(false)}
-                style={{width: '300px', height: '300px'}}
                 placeholder="Начните вводить текст начиная с @"
             />
             {show && (
