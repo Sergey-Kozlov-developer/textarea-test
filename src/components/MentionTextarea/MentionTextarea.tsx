@@ -1,9 +1,10 @@
 import styles from './MentionTeaxtarea.module.css'
-import {useState} from "react";
+import {useMention} from "../../hooks/useMention.ts";
+
 
 const MentionTextarea = () => {
 
-    const [text, setText] = useState('')
+    const {text, show, searchQuery, handleChangeText} = useMention();
 
     return (
         <div className={styles.container}>
@@ -11,12 +12,24 @@ const MentionTextarea = () => {
             <textarea
                 className={styles.textarea}
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={handleChangeText}
                 style={{width: '300px', height: '300px'}}
                 placeholder="Начните вводить текст начиная с @"
-            >
+            />
+            {show && (
+                <div style={{
+                    position: "absolute",
+                    background: "white",
+                    border: "1px solid #ccc",
+                    padding: 8,
+                    top: 100,
+                    left: 20
+                }}>
+                    Ищем: {searchQuery}
+                </div>
+            )}
 
-            </textarea>
+
         </div>
     );
 };
