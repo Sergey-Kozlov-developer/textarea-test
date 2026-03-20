@@ -1,32 +1,46 @@
 import styles from './MentionTeaxtarea.module.css'
 import {useMention} from "../../hooks/useMention.ts";
+import MentionShow from "../MentionShow/MentionShow.tsx";
 
 
 const MentionTextarea = () => {
 
-    const {text, show, searchQuery, handleChangeText} = useMention();
+    const {
+        text,
+        show,
+        textareaRef,
+        setShow,
+        position,
+        insertMention,
+        selectedIndex,
+        setSelectedIndex,
+        handleKeyDown,
+        filteredUsers,
+        handleChangeText
+    } = useMention();
 
     return (
         <div className={styles.container}>
             <p>Textarea test</p>
             <textarea
+                ref={textareaRef}
                 className={styles.textarea}
                 value={text}
                 onChange={handleChangeText}
+                onKeyDown={handleKeyDown}
+                onBlur={() => setShow(false)}
                 style={{width: '300px', height: '300px'}}
                 placeholder="Начните вводить текст начиная с @"
             />
             {show && (
-                <div style={{
-                    position: "absolute",
-                    background: "white",
-                    border: "1px solid #ccc",
-                    padding: 8,
-                    top: 100,
-                    left: 20
-                }}>
-                    Ищем: {searchQuery}
-                </div>
+                <MentionShow
+                    users={filteredUsers}
+                    selectedIndex={selectedIndex}
+                    position={position}
+                    onSelect={insertMention}
+                    onMouseEnter={setSelectedIndex}
+                    onClose={() => setShow(false)}
+                />
             )}
 
 

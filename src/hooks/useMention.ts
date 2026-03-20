@@ -137,6 +137,7 @@ export const useMention = () => {
         filteredUsers,
         position,
         textareaRef,
+        selectedIndex,
         handleChangeText,
         handleKeyDown,
         insertMention,
